@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayutur's Blackboard-writing</title>
+    <!-- 引入公共样式 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon 可选，可自行准备一个 32x32 的图标放入仓库根目录 -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 几何雨背景 Canvas -->
+    <canvas id="geometry-rain"></canvas>
+
+    <!-- 主内容容器，位于 Canvas 上层 -->
+    <div class="container">
+        <!-- 顶部工具栏：语言切换 + 深色模式 -->
+        <div class="toolbar">
+            <div class="lang-switch">
+                <button id="btnZh" class="btn active" onclick="switchLang('zh')">中文</button>
+                <button id="btnEn" class="btn" onclick="switchLang('en')">EN</button>
+            </div>
+            <div class="theme-switch">
+                <button id="themeToggle" class="btn" onclick="toggleTheme()">🌙</button>
+            </div>
+        </div>
+
+        <!-- ========== 头部标识区 ========== -->
+        <header style="text-align: center; margin-bottom: 30px;">
+            <!-- 头像，可替换为你的图片，例如 <img src="avatar.png" alt="avatar" class="avatar"> -->
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2em; font-weight: bold;">A</div>
+            
+            <h1>Ayutur's Blackboard-writing</h1>
+            <p class="text-secondary">
+                <span class="zh">一位数学方面的教育工作者</span>
+                <span class="en">A mathematics educator</span>
+            </p>
+            <p class="text-secondary" style="max-width: 500px; margin: 10px auto;">
+                <span class="zh">我喜欢用可视化的方式拆解数学概念，这里是我的一些教学随想和交互作品。</span>
+                <span class="en">I enjoy breaking down math concepts visually. Here I share some teaching thoughts and interactive works.</span>
+            </p>
+            <!-- 技能标签 -->
+            <div style="margin-top: 15px;">
+                <span class="tag">数学可视化</span>
+                <span class="tag">Three.js</span>
+                <span class="tag">GeoGebra</span>
+                <span class="tag">立体几何</span>
+                <span class="tag">学考备考</span>
+            </div>
+        </header>
+
+        <!-- ========== 项目作品目录区 ========== -->
+        <section>
+            <h2>
+                <span class="zh">📂 项目作品</span>
+                <span class="en">📂 Projects</span>
+            </h2>
+
+            <!-- 项目卡片 1：多面体展示 -->
+            <div class="card">
+                <h3>
+                    <a href="https://ayutur.github.io/Ayutur/多面体.html">
+                        <span class="zh">多面体展示</span>
+                        <span class="en">Polyhedron Display</span>
+                    </a>
+                </h3>
+                <p class="text-secondary">
+                    <span class="zh">一个立体几何的交互可视化</span>
+                    <span class="en">An interactive 3D geometry visualization</span>
+                </p>
+                <div>
+                    <span class="tag">Three.js</span>
+                    <span class="tag">3D</span>
+                </div>
+                <div class="text-secondary" style="font-size: 0.8em; margin-top: 5px;">
+                    <span class="zh">更新时间：2026-07</span>
+                    <span class="en">Updated: Jul 2026</span>
+                </div>
+            </div>
+
+            <!-- 项目卡片 2：25学考立体几何 -->
+            <div class="card">
+                <h3>
+                    <a href="https://ayutur.github.io/Ayutur/25学考立体几何.html">
+                        <span class="zh">25学考立体几何</span>
+                        <span class="en">3D Geometry for Exam</span>
+                    </a>
+                </h3>
+                <p class="text-secondary">
+                    <span class="zh">学考备考相关资料整理</span>
+                    <span class="en">Review materials for solid geometry exam</span>
+                </p>
+                <div>
+                    <span class="tag">GeoGebra</span>
+                    <span class="tag">学考</span>
+                </div>
+                <div class="text-secondary" style="font-size: 0.8em; margin-top: 5px;">
+                    <span class="zh">更新时间：2026-07</span>
+                    <span class="en">Updated: Jul 2026</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 推文/随想展示区 ========== -->
+        <section style="margin-top: 30px;">
+            <h2>
+                <span class="zh">📝 最近推文</span>
+                <span class="en">📝 Recent Posts</span>
+            </h2>
+
+            <!-- 示例推文卡片 1 -->
+            <div class="card">
+                <p>
+                    <span class="zh">立体几何教学中，让学生亲手旋转模型远比静态图片有效。今天的多面体演示收到了不错的反馈。</span>
+                    <span class="en">In solid geometry teaching, letting students rotate the model themselves is far more effective than static images. The polyhedron demo received good feedback today.</span>
+                </p>
+                <div class="text-secondary" style="font-size: 0.8em; margin-top: 8px;">
+                    2026-06-28
+                    <span class="tag" style="margin-left: 8px;">#教学心得</span>
+                </div>
+            </div>
+
+            <!-- 示例推文卡片 2 -->
+            <div class="card">
+                <p>
+                    <span class="zh">最近在整理学考立体几何的常见题型，准备做一个交互式解析页面。</span>
+                    <span class="en">Recently organizing common solid geometry exam questions, planning to build an interactive solution page.</span>
+                </p>
+                <div class="text-secondary" style="font-size: 0.8em; margin-top: 8px;">
+                    2026-06-20
+                    <span class="tag" style="margin-left: 8px;">#学考</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 联系区 ========== -->
+        <section style="margin-top: 30px;">
+            <h2>
+                <span class="zh">📬 找到我</span>
+                <span class="en">📬 Find me</span>
+            </h2>
+            <p>
+                <span class="zh">GitHub：</span>
+                <span class="en">GitHub: </span>
+                <a href="https://github.com/ayutur" target="_blank">ayutur</a>
+            </p>
+            <!-- 可继续添加邮箱等其他联系方式 -->
+        </section>
+
+        <!-- ========== 页脚 ========== -->
+        <div class="footer">
+            <span class="zh">© 2026 Ayutur · 由 GitHub Pages 驱动</span>
+            <span class="en">© 2026 Ayutur · Powered by GitHub Pages</span>
+        </div>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="back-to-top" title="返回顶部">↑</button>
+
+    <!-- ========== JavaScript：语言切换、深色模式、返回顶部、几何雨 ========== -->
+    <script>
+        // ----- 语言切换 -----
+        function switchLang(lang) {
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+                document.getElementById('btnEn').classList.add('active');
+                document.getElementById('btnZh').classList.remove('active');
+            } else {
+                document.body.classList.remove('lang-en');
+                document.getElementById('btnZh').classList.add('active');
+                document.getElementById('btnEn').classList.remove('active');
+            }
+            // 存储用户偏好
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // 初始化语言（默认中文，如果之前存了英文则用英文）
+        (function() {
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang === 'en') {
+                switchLang('en');
+            }
+        })();
+
+        // ----- 深色模式切换 -----
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            const btn = document.getElementById('themeToggle');
+            btn.innerHTML = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // 初始化主题（跟随系统或存储偏好）
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark');
+                document.getElementById('themeToggle').innerHTML = '☀️';
+            }
+        })();
+
+        // ----- 返回顶部按钮 -----
+        (function() {
+            const btn = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            });
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // ----- 几何雨背景动画 -----
+        (function() {
+            const canvas = document.getElementById('geometry-rain');
+            const ctx = canvas.getContext('2d');
+            const POINT_COUNT = 30;
+            let points = [];
+            let animationId;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            function initPoints() {
+                points = [];
+                for (let i = 0; i < POINT_COUNT; i++) {
+                    points.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                    });
+                }
+            }
+            initPoints();
+            window.addEventListener('resize', initPoints);
+
+            function getThemeColor() {
+                const style = getComputedStyle(document.body);
+                const accent = style.getPropertyValue('--accent').trim() || '#3498db';
+                const isDark = document.body.classList.contains('dark');
+                return isDark ? 'rgba(93, 173, 226, 0.3)' : 'rgba(52, 152, 219, 0.2)';
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const margin = 80;
+                for (let p of points) {
+                    // 边缘拉力
+                    if (p.x < margin) p.vx += 0.02;
+                    if (p.x > canvas.width - margin) p.vx -= 0.02;
+                    if (p.y < margin) p.vy += 0.02;
+                    if (p.y > canvas.height - margin) p.vy -= 0.02;
+
+                    p.vx = Math.max(-1, Math.min(1, p.vx));
+                    p.vy = Math.max(-1, Math.min(1, p.vy));
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                }
+
+                const lineColor = getThemeColor();
+                for (let i = 0; i < points.length; i++) {
+                    for (let j = i + 1; j < points.length; j++) {
+                        const dx = points[i].x - points[j].x;
+                        const dy = points[i].y - points[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[i].x, points[i].y);
+                            ctx.lineTo(points[j].x, points[j].y);
+                            ctx.strokeStyle = lineColor;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                ctx.fillStyle = getThemeColor().replace('0.2', '0.5');
+                for (let p of points) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                animationId = requestAnimationFrame(draw);
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    cancelAnimationFrame(animationId);
+                } else {
+                    draw();
+                }
+            });
+
+            draw();
+        })();
+    </script>
+</body>
+</html>
