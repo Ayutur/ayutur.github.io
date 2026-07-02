@@ -19,3 +19,29 @@
 body {
     background: var(--bg); /* 保持页面背景色 */
 }
+
+/* 固定导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+    padding: 10px 0;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.navbar a {
+    font-size: 0.95em;
+    color: var(--text);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.navbar a:hover {
+    background: var(--border);
+}
