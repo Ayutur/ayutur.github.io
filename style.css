@@ -1,47 +1,119 @@
-/* 几何雨背景 Canvas */
-#geometry-rain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;           /* 放在最底层 */
-    pointer-events: none; /* 让鼠标穿透，不影响点击 */
+:root {
+    --bg: #f9f9f9;
+    --surface: #fff;
+    --text: #333;
+    --text-secondary: #666;
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --border: #e0e0e0;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --radius: 8px;
+    --max-width: 720px;
+    --font-main: "PingFang SC","Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;
 }
 
-/* 确保内容容器在 Canvas 上层 */
-.container {
-    position: relative;
-    z-index: 1;
+body.dark {
+    --bg: #1a1a1a;
+    --surface: #2a2a2a;
+    --text: #e0e0e0;
+    --text-secondary: #aaa;
+    --primary: #e0e0e0;
+    --accent: #5dade2;
+    --border: #444;
+    --shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-/* 卡片等也设置背景，防止透明露出 Canvas 过于杂乱 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    background: var(--bg); /* 保持页面背景色 */
+    font-family: var(--font-main);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    transition: background .3s, color .3s;
+    padding-bottom: 60px;
 }
 
-/* 固定导航栏 */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 20px; }
+
+a { color: var(--accent); text-decoration: none; transition: color .2s; }
+a:hover { text-decoration: underline; color: #e67e22; }
+
+h1, h2, h3 { color: var(--primary); line-height: 1.3; margin: 1.2em 0 0.5em; }
+h1 { font-size: 1.8em; } h2 { font-size: 1.4em; } h3 { font-size: 1.1em; }
+p { margin: 0.8em 0; }
+.text-secondary { color: var(--text-secondary); font-size: 0.9em; }
+
+.zh { display: none; } .en { display: block; }
+body.lang-en .zh { display: none; } body.lang-en .en { display: block; }
+body:not(.lang-en) .zh { display: block; } body:not(.lang-en) .en { display: none; }
+
+.btn {
+    display: inline-block; padding: 4px 12px; border: 1px solid var(--accent);
+    background: transparent; color: var(--accent); border-radius: var(--radius);
+    cursor: pointer; font-size: 0.85em; transition: .2s; line-height: 1.4;
+}
+.btn:hover { background: var(--accent); color: #fff; }
+
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    z-index: 10;
-    padding: 10px 0;
+    position: fixed; top: 0; left: 0; right: 0; background: var(--surface);
+    border-bottom: 1px solid var(--border); z-index: 10; padding: 5px 0;
     box-shadow: 0 1px 5px rgba(0,0,0,0.05);
 }
+.nav-container {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 5px 30px; width: 100%; max-width: none;
+}
+.nav-left { display: flex; gap: 25px; }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.navbar a { font-size: 0.95em; color: var(--text); padding: 3px 6px; border-radius: 4px; transition: background .2s; }
+.navbar a:hover { background: var(--border); }
+.navbar a.active-nav { color: var(--accent); font-weight: bold; }
+.navbar a:link, .navbar a:visited { color: var(--text) !important; text-decoration: none !important; }
 
-.navbar a {
-    font-size: 0.95em;
-    color: var(--text);
-    text-decoration: none;
-    padding: 5px 8px;
-    border-radius: 4px;
-    transition: background 0.2s;
+.main-container { padding-top: 60px; position: relative; z-index: 1; }
+.header-area { text-align: center; margin-bottom: 30px; }
+.intro-text { max-width: 500px; margin: 10px auto; }
+.content-panel { display: none; }
+.content-panel.active { display: block; }
+.card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; margin: 16px 0; box-shadow: var(--shadow);
+    transition: background 0.3s, border 0.3s;
+}
+.post-list { list-style: none; padding: 0; }
+
+.footer-fixed {
+    position: fixed; bottom: 15px; right: 20px; font-size: 0.8em;
+    color: var(--text-secondary); z-index: 20; pointer-events: none; opacity: 0.7;
 }
 
-.navbar a:hover {
-    background: var(--border);
+.back-to-top {
+    position: fixed; bottom: 30px; right: 30px; width: 40px; height: 40px;
+    background: var(--accent); color: white; border: none; border-radius: 50%;
+    font-size: 1.2em; cursor: pointer; opacity: 0; visibility: hidden; transition: .3s;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 100;
+}
+.back-to-top.show { opacity: 1; visibility: visible; }
+
+#geometry-rain {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+}
+#fish-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .container { padding: 15px; } h1 { font-size: 1.5em; }
+    .nav-container { flex-direction: column; gap: 5px; padding: 5px 10px; }
+    .main-container { padding-top: 100px; }
+    .footer-fixed { right: 10px; bottom: 10px; }
+}
+
+@media print {
+    .navbar, .back-to-top, .footer-fixed, #geometry-rain, #fish-canvas { display: none !important; }
+    body { background: white; color: black; font-size: 12pt; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+    .content-panel { display: block !important; }
 }
